@@ -27,10 +27,19 @@ app.delete('/remove', (req,res)=>{
 app.get('/items', (req,res)=>{
     res.json(data)
 })
-// GET specific item
-app.get('/item/:id', (req,res)=>{
-    res.json(data[req.params.id-1])
+// GET specific student in class using his id
+app.get('/class/:id', (req,res)=>{
+    const studentId = Number(req.params.id)
+    const student = data.filter((student)=> student.id === studentId)
+    res.send(student)
 })
+
+
+// static files routing
+// firstly it's the default directory for photos
+app.use(express.static('public'))
+// secondly it's the directory for image directory photos
+app.use('/images',express.static('images'))
 
 // establish the server
 app.listen(PORT,()=>{
